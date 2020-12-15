@@ -1,3 +1,4 @@
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -10,7 +11,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 @NgModule({
   declarations: [
     MyApp,
@@ -21,7 +23,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    NgxQRCodeModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -34,7 +37,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    BarcodeScanner, Base64ToGallery
+
   ]
 })
-export class AppModule {}
+export class AppModule { }

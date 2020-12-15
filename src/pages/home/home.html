@@ -1,17 +1,65 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <ion-title>QR Code Surat LCSB</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <ion-item>
+    <ion-label>MM DD YY</ion-label>
+    <ion-datetime
+      displayFormat="MM DD YY"
+      placeholder="Select Date"
+    ></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-input type="text" placeholder="My QR data" [(ngModel)]="qrData">
+    </ion-input>
+  </ion-item>
+
+  <ion-segment [(ngModel)]="elementType">
+    <ion-segment-button value="canvas">
+    <ion-label>Canvas</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="img">
+    <ion-label>Image</ion-label>
+  </ion-segment-button>
+  <ion-segment-button value="url">
+    <ion-label>Url</ion-label>
+  </ion-segment-button>
+  </ion-segment>
+
+
+  <button ion-button full (click)="scanCode()">
+    <ion-icon name="qr-scanner"></ion-icon> Scan Code
+  </button>
+
+  <ion-card *ngIf= "qrData" text-center>
+
+    <ngx-qrcode
+    [elementType]="elementType"
+    [value]= "qrData">
+  </ngx-qrcode>
+  <ion-card-content>
+  <button expand="full" color="tertiary" (click)="downloadQR()" *ngIf="elementType ==='canvas'">
+    <ion-icon name="download" slot="start"></ion-icon>
+    Download QR Code
+  </button>
+</ion-card-content>
+</ion-card>
+
+    <ion-card *ngIf="scannedCode">
+    </ion-card>
+    <ion-card-content>
+      <p>Value:{{ qrData}}</p>
+    </ion-card-content>
+
+
+  <ion-card *ngIf="scannedCode">
+    <ion-card-content> Result from Scan:{{ scannedCode}} </ion-card-content>
+  </ion-card>
+
+  <ion-card-content>
+    Sila scan untuk mendapatkan maklumat lanjut:
+  </ion-card-content>
 </ion-content>
